@@ -1,4 +1,3 @@
-version: '3'
 services:
   web:
     image: "php:7.4-cli"
@@ -32,6 +31,6 @@ services:
 
     volumes:
       # comment line below after first run
-      - ./includes:/docker-entrypoint-initdb.d
+      # - ./includes:/docker-entrypoint-initdb.d
       # uncomment line below after first run
-      # - ./data:/var/lib/mysql
+      - ./data:/var/lib/mysql
