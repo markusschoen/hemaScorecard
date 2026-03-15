@@ -2359,8 +2359,8 @@ INSERT INTO `systemRankings` (`tournamentRankingID`, `name`, `formatID`, `number
 (77, 'Erie Score', 2, 5, '== Ranking ==\r\n1) Indicator Score [Highest]\r\n2) Doubles [Lowest]\r\n3) Wins [Highest]\r\n\r\n== Indicator Score ==\r\nPoints For / Points Against', NULL, NULL, 'case \r\n	when (AbsPointsAgainst) != 0 then\r\n		(AbsPointsFor / AbsPointsAgainst)\r\n	else\r\n		(AbsPointsFor)\r\nend', 'score', 'DESC', 'doubles', 'ASC', 'wins', 'DESC', NULL, NULL, 'Wins', 'wins', 'Points For', 'AbsPointsFor', 'Points Against', 'AbsPointsAgainst', 'Doubles', 'doubles', 'Score', 'score'),
 (78, 'Unicorn', 2, 3, '== Ranking ====\r\nIndicator Score\r\n1st Tiebreaker: Wins [Highest]\r\n2nd Tiebreaker: Hits Against [Lowest]\r\n\r\n==Indicator Score ====\r\n 10 points per win\r\n + Number of points your opponents were away from the cap in each match.\r\n', NULL, NULL, '10*wins + 10*matches - AbsPointsAgainst', 'score', 'DESC', 'wins', 'DESC', 'hitsAgainst', 'ASC', NULL, NULL, 'Wins', 'wins', 'Points For', 'AbsPointsFor', 'Points Against', 'AbsPointsAgainst', 'Score', 'score', NULL, NULL),
 (79, 'Crossing Fight School', 2, 3, '== Ranking ===\r\nWins\r\n1st Tiebreaker: Control Points For\r\n2nd Tiebreaker: Points For - Points Against', NULL, NULL, '#Crossing', 'wins', 'DESC', 'score', 'DESC', 'pointsFor - pointsAgainst', 'DESC', NULL, NULL, 'Wins', 'wins', 'Control Points', 'score', 'Points For', 'pointsFor', 'Points Against', 'pointsAgainst', 'Score +/-', 'pointsFor - pointsAgainst'),
-(80, 'Steel & Chill', 2, 1, '== Ranking ====\r\nIndicator Score\r\n1st Tiebreaker: Doubles [Lowest]\r\n2nd Tiebreaker: Hits For [Highest]\r\n3rd Tiebreaker: Hits Against [Lowest]\r\n\r\n==Indicator Score ====\r\n(3 * wins) + ties', NULL, NULL, '(3 * wins) + ties', 'score', 'DESC', 'doubles', 'ASC', 'hitsFor', 'DESC', 'hitsAgainst', 'ASC', 'Wins', 'wins', 'Ties', 'ties', 'Hits For', 'hitsFor', 'Hits Against', 'hitsAgainst', NULL, NULL);
-
+(80, 'Steel & Chill', 2, 1, '== Ranking ====\r\nIndicator Score\r\n1st Tiebreaker: Doubles [Lowest]\r\n2nd Tiebreaker: Hits For [Highest]\r\n3rd Tiebreaker: Hits Against [Lowest]\r\n\r\n==Indicator Score ====\r\n(3 * wins) + ties', NULL, NULL, '(3 * wins) + ties', 'score', 'DESC', 'doubles', 'ASC', 'hitsFor', 'DESC', 'hitsAgainst', 'ASC', 'Wins', 'wins', 'Ties', 'ties', 'Hits For', 'hitsFor', 'Hits Against', 'hitsAgainst', NULL, NULL),
+(81, 'Swabian Ranking', 2, 0, '== Ranking ===\r\nIndicator Score\r\n1st Tiebreaker: Wins\r\n\r\n== Indicator Score ===\r\nBase Score: 3*Wins + 1*Ties\r\nBonus Score: Based on point difference\r\nDiff >=7: +3, >=5: +2, >=3: +1, else +0\r\nTotal Score = Base + Bonus', NULL, 'Swabian', '#Swabian', 'score', 'DESC', 'wins', 'DESC', 'pointsAgainst', 'ASC', NULL, NULL, 'Score', 'score', 'Wins', 'wins', 'Points For', 'pointsFor', 'Points Against', 'pointsAgainst', 'Doubles', 'doubles');
 -- --------------------------------------------------------
 
 --
@@ -3607,7 +3607,7 @@ ALTER TABLE `systemOptionsList`
 -- AUTO_INCREMENT for table `systemRankings`
 --
 ALTER TABLE `systemRankings`
-  MODIFY `tournamentRankingID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `tournamentRankingID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 --
 -- AUTO_INCREMENT for table `systemRoster`
 --

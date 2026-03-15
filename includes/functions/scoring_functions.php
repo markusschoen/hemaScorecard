@@ -904,6 +904,71 @@ function _PhoMatchPoints_calculateScore($tournamentID, $groupSet = 1){
 
 /******************************************************************************/
 
+function _Swabian_calculateScore($tournamentID, $groupSet = 1){
+
+	$tournamentID = (int)$tournamentID;
+	$groupSet = (int)$groupSet;
+
+	$sql = "SELECT standingID, rosterID, wins, ties
+			FROM eventStandings
+			WHERE tournamentID = {$tournamentID}
+			AND groupSet = {$groupSet}";
+	$standingsToScore = mysqlQuery($sql, ASSOC);
+
+	if($standingsToScore == null){
+		return;
+	}
+
+	foreach($standingsToScore as $standing){
+
+		$rosterID = (int)$standing['rosterID'];
+		$standingID = (int)$standing['standingID'];
+
+		$baseScore = 3 * $standing['wins'] + 1 * $standing['ties'];
+
+		// Calculate bonus score from per-match point differences
+		$sql = "SELECT fighter1ID, fighter2ID, fighter1Score, fighter2Score
+				FROM eventMatches AS eM
+				INNER JOIN eventGroups USING(groupID)
+				WHERE (fighter1ID = {$rosterID} OR fighter2ID = {$rosterID})
+				AND tournamentID = {$tournamentID}
+				AND groupType = 'pool'
+				AND groupSet = {$groupSet}
+				AND ignoreMatch = 0
+				AND matchComplete = 1";
+		$matches = mysqlQuery($sql, ASSOC);
+
+		$bonusScore = 0;
+		foreach($matches as $match){
+			if($match['fighter1ID'] == $rosterID){
+				$pointsFor = $match['fighter1Score'];
+				$pointsAgainst = $match['fighter2Score'];
+			} else {
+				$pointsFor = $match['fighter2Score'];
+				$pointsAgainst = $match['fighter1Score'];
+			}
+
+			$pointDiff = $pointsFor - $pointsAgainst;
+			if($pointDiff >= 7){
+				$bonusScore += 3;
+			} elseif($pointDiff >= 5){
+				$bonusScore += 2;
+			} elseif($pointDiff >= 3){
+				$bonusScore += 1;
+			}
+		}
+
+		$score = $baseScore + $bonusScore;
+
+		$sql = "UPDATE eventStandings
+				SET score = {$score}
+				WHERE standingID = {$standingID}";
+		mysqlQuery($sql, SEND);
+	}
+}
+
+/******************************************************************************/
+
 function _Schnegel_calculateScore($tournamentID, $groupSet = 1){
 
 	$tournamentID = (int)$tournamentID;
