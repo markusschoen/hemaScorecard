@@ -904,7 +904,7 @@ function _PhoMatchPoints_calculateScore($tournamentID, $groupSet = 1){
 
 /******************************************************************************/
 
-function _Swabian_calculateScore($tournamentID, $groupSet = 1){
+function _Symphony_calculateScore($tournamentID, $groupSet = 1){
 
 	$tournamentID = (int)$tournamentID;
 	$groupSet = (int)$groupSet;
