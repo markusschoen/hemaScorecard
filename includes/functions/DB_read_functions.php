@@ -175,6 +175,10 @@ function hemaRatings_createEventInfoCsv($eventID, $dir = "exports/"){
 
 // Create the CSV file
 	$fp = fopen($fileName, 'w');
+	if ($fp === false) {
+		setAlert(SYSTEM, "Unable to open export file: {$fileName}");
+		return false;
+	}
 
 	foreach($eventInfo as $field => $data){
 		if($field == 'organizingSchool'){
@@ -214,6 +218,10 @@ function hemaRatings_createEventRosterCsv($eventID = null, $dir = "exports/"){
 
 // Create the CSV file
 	$fp = fopen($fileName, 'w');
+	if ($fp === false) {
+		setAlert(SYSTEM, "Unable to open export file: {$fileName}");
+		return false;
+	}
 
 	foreach ($eventRoster as $fields) {
 
@@ -472,6 +480,10 @@ function ferrotas_createTournamentResultsCsv($tournamentID, $dir = "exports/"){
 	$tournamentName = getTournamentName($tournamentID);
 	$fileName = "{$dir}{$tournamentName}.csv";
 	$fp = fopen($fileName, 'w');
+	if ($fp === false) {
+		setAlert(SYSTEM, "Unable to open export file: {$fileName}");
+		return false;
+	}
 
 	foreach($bracketPlacings as $place => $rosterID){
 
@@ -535,6 +547,10 @@ function hemaRatings_createTournamentResultsCsv($tournamentID, $dir = "exports/"
 
 // Create the CSV file
 	$fp = fopen($fileName, 'w');
+	if ($fp === false) {
+		setAlert(SYSTEM, "Unable to open export file: {$fileName}");
+		return false;
+	}
 
 	foreach($finishedMatches as $match){
 

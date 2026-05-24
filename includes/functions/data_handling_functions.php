@@ -568,6 +568,11 @@ function uploadCsvFile($fileName){
 
 	} else {
 
+		if(!file_exists($fileName)){
+			$_SESSION['alertMessages']['systemErrors'][] =  "File not found in uploadCsvFile(): {$fileName}";
+			return;
+		}
+
 		// Upload the file to user
 		header('Content-type: application/csv');
 		header('Content-Disposition: attachment; filename="' . basename($fileName) . '"');

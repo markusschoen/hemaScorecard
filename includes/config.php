@@ -66,7 +66,12 @@
 	define("FINALS","0");
 	define("ALL_GROUP_SETS",0);
 
-	define("EXPORT_DIR",'exports/');
+	define("EXPORT_DIR", BASE_URL.'exports/');
+
+// Ensure the exports directory exists and is writable
+if(!is_dir(EXPORT_DIR)){
+    mkdir(EXPORT_DIR, 0755, true);
+}
 
 // Tournament Related Constants
 
